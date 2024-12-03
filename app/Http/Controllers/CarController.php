@@ -1,47 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Car;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCarRequest;
+use App\Http\Requests\UpdateCarRequest;
+// use App\Http\Resources\CarResource;
 
 class CarController extends Controller
 {
     public function index() {
-        return Car::all();
+        return Car::orderBy('created_at', 'desc')->get();
     }
-
-    public function store(Request $request) {
-        $request->validate([
-            'model' => 'required|string|max:255',
-            'brand' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:' . now()->year,
-            'matricule' => 'required|string|unique:cars',
-            'price_per_day' => 'required',
-            'category' => 'required|in:économique,luxes,SUVs,vans',
-            'status' => 'required|in:disponible,pas disponible',
-        ]);
-
-        return Car::create($request->all());
+    public function store(StoreCarRequest $request) {
+        $car = Car::create($request->validated());
+        return apiResponse($car, 'Car created successfully');
     }
-
-    public function update(Request $request, Car $car) {
-        $request->validate([
-            'model' => 'required|string|max:255',
-            'brand' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:' . now()->year,
-            'price_per_day' => 'required',
-            'matricule' => 'required|string|unique:cars,matricule,' . $car->id,
-            'category' => 'required|in:économique,luxes,SUVs,vans',
-            'status' => 'required|in:disponible,pas disponible',
-        ]);
-
-        $car->update($request->all());
-        return $car;
+    public function update(UpdateCarRequest $request, Car $car) {
+        $car->update($request->validated());
+        return apiResponse($car, 'Car updated successfully');
     }
-
     public function destroy(Car $car) {
         $car->delete();
-        return response()->json(['message' => 'Car deleted']);
+        return apiResponse(null, 'Car deleted successfully');
     }
 }

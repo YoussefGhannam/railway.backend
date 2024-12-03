@@ -27,5 +27,11 @@ class Reservation extends Model
     {
         return $this->belongsTo(Car::class);
     }
+
+    public function extensions()
+{
+    return $this->hasMany(ReservationExtension::class);
+}
+
 }
 

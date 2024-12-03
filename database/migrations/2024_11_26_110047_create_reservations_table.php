@@ -18,7 +18,9 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->decimal('price', 10, 2);
-            $table->enum('status', ['confirmed', 'pending', 'cancelled']);
+            $table->date('extended_end_date')->nullable();
+            $table->enum('extension_status', ['confirmed', 'pending', 'cancelled'])->default('pending');
+            $table->enum('status', ['confirmed', 'pending', 'cancelled'])->default('pending');
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

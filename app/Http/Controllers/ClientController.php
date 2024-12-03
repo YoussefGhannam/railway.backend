@@ -49,3 +49,27 @@ class ClientController extends Controller
         ]);
     }
 }
+// <?php
+// namespace App\Http\Controllers;
+// use App\Models\Client;
+// use App\Http\Requests\StoreClientRequest;
+// use App\Http\Requests\UpdateClientRequest;
+
+// class ClientController extends Controller
+// {
+//     public function index() {
+//         return Client::with('car')->orderBy('created_at', 'desc')->get();
+//     }
+//     public function store(StoreClientRequest $request, Client $client) {
+//         $client = Client::create($request->validated());
+//         return apiResponse($client, 'Client created successfully');
+//     }
+//     public function update(UpdateClientRequest $request, Client $client) {
+//         $client = Client::create($request->validated());
+//         return apiResponse($client, 'Client updated successfully');
+//     }
+//     public function destroy(Client $client) {
+//         $client->delete();
+//         return apiResponse(null, 'Client deleted successfully');
+//     }
+// }

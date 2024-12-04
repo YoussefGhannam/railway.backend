@@ -34,4 +34,4 @@ jobs:
           server: ftp.vvvservices.com
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /home/vvvsuqwg/public_html/
+          server-dir: public_html/
